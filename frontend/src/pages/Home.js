@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTasksContext } from "../hooks/useTasksContext";
-import TaskDetails from "../components/taskDetails";
+import TaskDetails from "../components/TaskDetails";
 import TaskForm from "../components/TaskForm";
 const Home = () => {
     const {tasks, dispatch} = useTasksContext();
