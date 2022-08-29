@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useTasksContext } from "../hooks/useTasksContext";
 import TaskDetails from "../components/taskDetails";
 import TaskForm from "../components/TaskForm";
 const Home = () => {
-    const [tasks, setTasks] = useState(null);
+    const {tasks, dispatch} = useTasksContext();
 
     useEffect(() => {
         const getTasks = async () => {
             const response = await fetch("/api/tasks/");
             const json = await response.json();
             if(response.ok){
-                setTasks(json)
+                // update tasks context, setting tasks to json response
+                dispatch({type:'SET_TASKS', payload: json});
             }
         }
         getTasks();
