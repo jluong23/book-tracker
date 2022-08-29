@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const bookSchema = new Schema({
+const taskSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -11,10 +11,10 @@ const bookSchema = new Schema({
     type: String,
     required: true
   },
-  rating: {
-    type: Number,
+  color: {
+    type: String,
     required: true
   }
 }, { timestamps: true })
 
-module.exports = mongoose.model('Book', bookSchema)
+module.exports = mongoose.model('Task', taskSchema)

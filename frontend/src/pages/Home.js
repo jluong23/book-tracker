@@ -1,29 +1,32 @@
 import { useEffect, useState } from "react";
-import BookDetails from "../components/BookDetails";
+import TaskDetails from "../components/taskDetails";
+import TaskForm from "../components/TaskForm";
 const Home = () => {
-    const [books, setBooks] = useState(null);
+    const [tasks, setTasks] = useState(null);
 
     useEffect(() => {
-        const getBooks = async () => {
-            const response = await fetch("/api/books/");
+        const getTasks = async () => {
+            const response = await fetch("/api/tasks/");
             const json = await response.json();
             if(response.ok){
-                setBooks(json)
+                setTasks(json)
             }
         }
-        getBooks();
+        getTasks();
     }, []);
 
     return (
         <div>
-            <h1>All Books</h1>
-            <div className="books">
-                {books && books.map((book) => {
+            <h1>All Tasks</h1>
+
+            <div className="tasks flex flex-col">
+                {tasks && tasks.map((task) => {
                     return (
-                        <BookDetails key={book._id} book={book}/>
+                        <TaskDetails key={task._id} task={task}/>
                     )
                 })}
             </div>
+            <TaskForm/>
         </div>
     )
 }
