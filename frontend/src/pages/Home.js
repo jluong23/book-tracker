@@ -17,16 +17,23 @@ const Home = () => {
         getTasks();
     }, []);
 
+    const noTasksError = (
+        <div>There are no tasks!</div>
+    )
     return (
         <div>
-            <h1>All Tasks</h1>
+            <h2>All Tasks</h2>
 
-            <div className="tasks flex flex-col">
-                {tasks && tasks.map((task) => {
+            <div className="tasks flex">
+                {tasks && tasks.length > 0 ?
+                 tasks.map((task) => {
                     return (
                         <TaskDetails key={task._id} task={task}/>
                     )
-                })}
+                }) : noTasksError
+
+                }
+
             </div>
             <TaskForm/>
         </div>

@@ -1,4 +1,6 @@
 import useTasksContext from "../hooks/useTasksContext";
+import moment from 'moment';
+import {ImBin} from 'react-icons/im'
 
 const TaskDetails = ({task}) => {
     const { dispatch } = useTasksContext();
@@ -18,10 +20,9 @@ const TaskDetails = ({task}) => {
     return (
         <div className="p-2 m-4 border-2 w-max">
             <h2 className="font-bold">{task.title}</h2>
-            <p>Description: {task.description}</p>
-            <p className="">Color: {task.color}</p>
-            <p>{task.createdAt}</p>
-            <button onClick={handleDelete} className="pill-button text-white bg-error hover:bg-errorHover">Delete</button>
+            <p className="font-semibold">{moment(task.createdAt).format('LLL')}</p>
+            <p className="my-2">Description: {task.description}</p>
+            <ImBin onClick={handleDelete} className="cursor-pointer text-lg"/>
         </div>
     )
 }

@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
 const colors = require('tailwindcss/colors');
-
 module.exports = {
   mode: "jit",
   content: ["./src/**/*.{html,js}"],
@@ -11,7 +10,8 @@ module.exports = {
         primary: '#5c6ac4',
         secondary: '#1d4ed8',
         error: '#f87171',
-        errorHover: '#ef4444'
+        errorHover: '#ef4444',
+        success: '#22c55e'
       }
 
     },

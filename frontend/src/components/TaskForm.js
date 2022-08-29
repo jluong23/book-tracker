@@ -69,7 +69,7 @@ const TaskForm = () => {
                 type="text" 
             /><br/>
 
-            {error && <div className="bg-red-300 w-max">{error}</div>}
+            {error && <div className="w-max">{error}</div>}
             <input type="submit" className="pill-button text-white bg-primary hover:bg-secondary" value="Create"/>
         </form>
     )
