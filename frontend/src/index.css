@@ -15,6 +15,6 @@ input{
   
 }
 
-input[type=submit] {
-  @apply bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer
+.pill-button {
+  @apply font-bold py-2 px-4 rounded-full cursor-pointer
 }

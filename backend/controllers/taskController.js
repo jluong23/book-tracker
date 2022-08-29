@@ -28,6 +28,19 @@ const getTask = async (req, res) => {
 // create a new task
 const createTask = async (req, res) => {
   const {title, description, color} = req.body
+  let emptyFields = [];
+
+  for(let [field,value] of Object.entries(req.body)){
+    // check if task contains missing fields, submitted by user
+    if(!value || value === ''){
+      emptyFields.push(field);
+    }
+  }
+
+  if(emptyFields.length > 0){
+    return res.status(400).json({error: `Please fill in the missing fields.`, emptyFields})
+  }
+
 
   // add to the database
   try {
