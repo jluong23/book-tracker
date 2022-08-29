@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import BookDetails from "../components/BookDetails";
 const Home = () => {
     const [books, setBooks] = useState(null);
 
@@ -16,11 +16,11 @@ const Home = () => {
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>All Books</h1>
             <div className="books">
                 {books && books.map((book) => {
                     return (
-                        <p key={book._id}>{book.title}</p>
+                        <BookDetails key={book._id} book={book}/>
                     )
                 })}
             </div>
