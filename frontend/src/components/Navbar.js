@@ -17,7 +17,7 @@ const Navbar = () => {
                         <Link to="/" onClick={() => {logout()}}><h2>Log out</h2></Link>
                     </div>
                 ) : (
-                    <div className="flex space-x-4" items-center>
+                    <div className="flex space-x-4 items-center">
                         <Link to="/login"><h2>Log in</h2></Link>
                         <Link to="/signup"><h2>Sign up</h2></Link>
                     </div>

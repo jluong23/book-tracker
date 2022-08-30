@@ -1,7 +1,9 @@
 import { useState } from "react";
+import useAuthContext from "../hooks/useAuthContext";
 import useTasksContext from "../hooks/useTasksContext";
 const TaskForm = () => {
     const {dispatch} = useTasksContext();
+    const { user } = useAuthContext();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [color, setColor] = useState('');
@@ -18,16 +20,22 @@ const TaskForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(!user){
+            setError("Please login to create new tasks.");
+            return
+        }
         const Task = {title, description, color};
         const response = await fetch('/api/tasks', {
             method: 'POST',
             body: JSON.stringify(Task),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
 
         const json = await response.json();
+        console.log(json);
         if(response.ok){
             resetForm();
             // update tasks context, appending new task
