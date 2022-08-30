@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import useSignup from "../hooks/useSignup";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {signup, isLoading, error} = useSignup();
 
     const signupPost = async (e) => {
         e.preventDefault();
-        console.log(email, password);
+        await signup(email, password);
     }
     
     return (
@@ -25,7 +27,14 @@ const Signup = () => {
                 value={password} 
                 type="password"    
             /><br/>
-            <input type="submit" className="pill-button text-white bg-primary hover:bg-secondary" value="Sign up"/>
+            {error && <div>{error}</div>}
+            <input 
+                type="submit" 
+                className="pill-button text-white bg-primary hover:bg-secondary" 
+                value="Sign up"
+                disabled={isLoading}
+            />        
+
         </form>
     )
   
