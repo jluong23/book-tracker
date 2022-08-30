@@ -93,7 +93,7 @@ const TaskDetails = ({task}) => {
         <div className="p-2 m-4 border-2 w-max">
             <h2 className="font-bold">{task.title}</h2>
             <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
-            <p className="my-2">Description: {task.description}</p>
+            <p className="my-2">{task.description}</p>
             <div className="flex justify-between">
             <ImBin onClick={handleDelete} className="cursor-pointer text-lg"/>
             {/* Toggle edit mode when pressed . */}
