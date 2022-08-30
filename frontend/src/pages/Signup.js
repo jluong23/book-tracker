@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useState } from "react";
 import useSignup from "../hooks/useSignup";
 
 const Signup = () => {
