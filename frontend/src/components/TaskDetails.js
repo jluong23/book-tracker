@@ -3,14 +3,14 @@ import moment from 'moment';
 import {ImBin, ImPencil} from 'react-icons/im'
 import {FaSave} from 'react-icons/fa'
 import useAuthContext from "../hooks/useAuthContext";
-import { useState } from "react";
-import Modal from "./Modal";
+import { useEffect, useState } from "react";
 import TaskDeleteForm from "./TaskDeleteForm";
+import useModalContext from "../hooks/useModalContext";
 
 const TaskDetails = ({task}) => {
-    const { dispatch } = useTasksContext();
+    const { dispatch:tasksDispatch } = useTasksContext();
     const { user } = useAuthContext();
-    const [modalVisible, setModalVisible] = useState(false);
+    const { dispatch:modalDispatch } = useModalContext();
     // states used for editing the task.
     // for printing original task properties, use attributes of task
     const [editMode, setEditMode] = useState(false);
@@ -18,16 +18,14 @@ const TaskDetails = ({task}) => {
     const [description, setDescription] = useState(task.description);
     const [color, setColor] = useState(task.color);
 
+    const openModal = () => {
+        modalDispatch({
+            type: 'OPEN',
+            payload: <TaskDeleteForm/>
+        })   
+    }
     const toggleEditMode = () => {
         setEditMode(!editMode);
-    }
-
-    const closeModal = () => {
-        setModalVisible(false);
-    }
-
-    const openModal = () => {
-        setModalVisible(true);
     }
 
     const handleEditRequest = async () => {
@@ -47,7 +45,7 @@ const TaskDetails = ({task}) => {
         const json = await response.json();
         if(response.ok){
             // update tasks context
-            dispatch({
+            tasksDispatch({
                 type: 'UPDATE_TASK',
                 payload: json
             })
@@ -93,7 +91,6 @@ const TaskDetails = ({task}) => {
     )
     return (
         <div>
-            {modalVisible && <Modal closeModal={closeModal} content={<TaskDeleteForm task={task} closeModal={closeModal}/>}/>}
             {editMode ? editModeOuput : viewModeOutput}
 
         </div>
