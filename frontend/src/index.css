@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-  @apply bg-gray-400
+  @apply bg-gray-200
 
 }
 h1{
@@ -18,7 +18,15 @@ input{
   @apply border-2 my-0.5
   
 }
+a {
+  @apply text-blue-600
+}
+
+header a{ 
+  @apply text-black
+}
 
 .pill-button {
   @apply font-bold py-2 px-4 rounded-full cursor-pointer
 }
+

@@ -1,42 +1,9 @@
-import { useState } from "react";
-import useSignup from "../hooks/useSignup";
+import LoginForm from "../components/LoginForm";
 
 const Signup = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const {signup, isLoading, error} = useSignup();
-
-    const signupPost = async (e) => {
-        e.preventDefault();
-        await signup(email, password);
-    }
-    
     return (
-        <form onSubmit={(e) => {signupPost(e)}}>
-            <h1>Sign Up</h1>
-            <label>Email: </label>
-            <input 
-                onChange={(e) => setEmail(e.target.value)} 
-                value={email} 
-                type="email"    
-            /><br/>
-            <label>Password: </label>
-            <input 
-                onChange={(e) => setPassword(e.target.value)} 
-                value={password} 
-                type="password"    
-            /><br/>
-            {error && <div>{error}</div>}
-            <input 
-                type="submit" 
-                className="pill-button text-white bg-primary hover:bg-secondary" 
-                value="Sign up"
-                disabled={isLoading}
-            />        
-
-        </form>
+        <LoginForm formType={"signup"}/>
     )
-  
 }
   
 export default Signup;
