@@ -4,11 +4,13 @@ import {ImBin, ImPencil} from 'react-icons/im'
 import {FaSave} from 'react-icons/fa'
 import useAuthContext from "../hooks/useAuthContext";
 import { useState } from "react";
+import Modal from "./Modal";
+import TaskDeleteForm from "./TaskDeleteForm";
 
 const TaskDetails = ({task}) => {
     const { dispatch } = useTasksContext();
     const { user } = useAuthContext();
-
+    const [modalVisible, setModalVisible] = useState(false);
     // states used for editing the task.
     // for printing original task properties, use attributes of task
     const [editMode, setEditMode] = useState(false);
@@ -20,24 +22,12 @@ const TaskDetails = ({task}) => {
         setEditMode(!editMode);
     }
 
-    const handleDelete = async () => {
-        if(!user){
-            return
-        }
-        const response = await fetch(`/api/tasks/${task._id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${user.token}`
-            }
-        });
-        const json = await response.json();
-        if(response.ok){
-            // update tasks context
-            dispatch({
-                type: 'DELETE_TASK',
-                payload: json
-            })
-        }
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+
+    const openModal = () => {
+        setModalVisible(true);
     }
 
     const handleEditRequest = async () => {
@@ -81,7 +71,7 @@ const TaskDetails = ({task}) => {
                 /><br/>
             </form>
             <div className="flex justify-between">
-                <ImBin onClick={handleDelete} className="cursor-pointer text-lg"/>
+                <ImBin onClick={openModal} className="cursor-pointer text-lg"/>
                 {/* make request and toggle edit mode when save button is pressed. */}
                 <FaSave onClick={() => {handleEditRequest(); toggleEditMode();}} className="cursor-pointer text-lg"/>
                 
@@ -90,19 +80,24 @@ const TaskDetails = ({task}) => {
     )
 
     const viewModeOutput = (
-        <div className="p-2 m-4 border-2 w-max">
+        <div className="p-2 m-4 border-2 border-black border-opacity-20 w-max">
             <h2 className="font-bold">{task.title}</h2>
             <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
             <p className="my-2">{task.description}</p>
             <div className="flex justify-between">
-            <ImBin onClick={handleDelete} className="cursor-pointer text-lg"/>
+            <ImBin onClick={openModal} className="cursor-pointer text-lg"/>
             {/* Toggle edit mode when pressed . */}
             <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/>
             </div>
         </div>
     )
-    
-    return editMode ? editModeOuput : viewModeOutput;
+    return (
+        <div>
+            {modalVisible && <Modal closeModal={closeModal} content={<TaskDeleteForm task={task} closeModal={closeModal}/>}/>}
+            {editMode ? editModeOuput : viewModeOutput}
+
+        </div>
+    )
 }
 
 export default TaskDetails;

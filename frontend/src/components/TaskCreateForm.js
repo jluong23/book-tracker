@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import useTasksContext from "../hooks/useTasksContext";
-const TaskForm = () => {
+const TaskCreateForm = () => {
     const {dispatch} = useTasksContext();
     const { user } = useAuthContext();
     const [title, setTitle] = useState('');
@@ -47,39 +47,36 @@ const TaskForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="text-lg">
             <h2>Create Task</h2>
-            <label htmlFor="title">Title: </label>
             <input 
-                name="title"
                 className={emptyFields.includes('title') ? "border-error" : ""}
                 onChange={(e) => setTitle(e.target.value)} 
                 value={title} 
-                type="text"    
+                type="text"   
+                placeholder="Title" 
             /><br/>
 
-            <label htmlFor="description">Description: </label>
             <input 
-                name="description"
                 className={emptyFields.includes('description') ? "border-error" : ""}
                 onChange={(e) => setDescription(e.target.value)} 
                 value={description} 
                 type="text"
+                placeholder="Description" 
             /><br/>
 
-            <label htmlFor="color">Color: </label>
             <input 
-                name="color"
                 className={emptyFields.includes('color') ? "border-error" : ""}
                 onChange={(e) => setColor(e.target.value)} 
                 value={color}
                 type="text" 
+                placeholder="Color" 
             /><br/>
 
-            {error && <div className="w-max">{error}</div>}
+            {error && <div className="w-max whitespace-pre-wrap">{error}</div>}
             <input type="submit" className="pill-button text-white bg-primary hover:bg-secondary" value="Create"/>
         </form>
     )
 }
 
-export default TaskForm;
+export default TaskCreateForm;

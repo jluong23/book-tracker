@@ -6,14 +6,14 @@ const Navbar = () => {
     const { user } = useAuthContext();
 
     return (
-        <header className="bg-primary p-2 flex justify-between">
+        <header className="bg-primary p-2 flex justify-between w-full">
             <div className="site-title">
                 <Link to="/"><h1>Task Tracker</h1></Link>
             </div>
             <nav>
                 {user ? (
                     <div className="flex space-x-4 items-center">
-                        <span>{user.email}</span>
+                        <span className="hidden xs:inline">{user.email}</span>
                         <Link to="/" onClick={() => {logout()}}><h2>Log out</h2></Link>
                     </div>
                 ) : (

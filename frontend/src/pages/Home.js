@@ -3,7 +3,7 @@ import { useTasksContext } from "../hooks/useTasksContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import TaskDetails from "../components/TaskDetails";
-import TaskForm from "../components/TaskForm";
+import TaskIcons from "../components/TaskIcons";
 const Home = () => {
     const {tasks, dispatch} = useTasksContext();
     const { user } = useAuthContext();
@@ -37,7 +37,7 @@ const Home = () => {
             return <div>There are no tasks remaining!</div>
         }
         return (
-            <div className="tasks flex">
+            <div className="flex">
                 {tasks.map((task) => {
                     return (
                         <TaskDetails key={task._id} task={task}/>
@@ -47,10 +47,12 @@ const Home = () => {
         )
     }
     return (
-        <div>
-            <h2>All Tasks</h2>
+        <div className="p-2 ">
+            <div className="flex">
+                <h2>All Tasks</h2>
+                <TaskIcons/>
+            </div>
             {tasksOutput()}
-            <TaskForm/>
         </div>
     )
 }
