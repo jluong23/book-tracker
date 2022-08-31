@@ -29,37 +29,37 @@ const LoginForm = ({formType}) => {
     }
     
     return (
-        <form className="space-y-2" onSubmit={(e) => {handlePostRequest(e)}}>
-            <h1>{formattedFormType}</h1>
-            <div className="flex items-center space-x-1">
-                <AiOutlineMail/>
+            <form className="space-y-2 flex flex-1 flex-col justify-center items-center" onSubmit={(e) => {handlePostRequest(e)}}>
+                <h1>{formattedFormType}</h1>
+                <div className="flex items-center space-x-1">
+                    <AiOutlineMail/>
+                    <input 
+                        placeholder={"Email"}
+                        className="bg-transparent border-0 border-b-2 border-gray-500" //only bottom border
+                        onChange={(e) => setEmail(e.target.value)} 
+                        value={email} 
+                        type="email"    
+                    />
+                </div>
+                <div className="flex items-center space-x-1">
+                    <RiLockPasswordLine/>
+                    <input 
+                        className="bg-transparent border-0 border-b-2 border-gray-500" //only bottom border
+                        placeholder={"Password"}
+                        onChange={(e) => setPassword(e.target.value)} 
+                        value={password} 
+                        type="password"    
+                    />
+                </div>
+                {error && <div>{error}</div>}
                 <input 
-                    placeholder={"Email"}
-                    className="bg-transparent border-0 border-b-2 border-gray-500" //only bottom border
-                    onChange={(e) => setEmail(e.target.value)} 
-                    value={email} 
-                    type="email"    
-                />
-            </div>
-            <div className="flex items-center space-x-1">
-                <RiLockPasswordLine/>
-                <input 
-                    className="bg-transparent border-0 border-b-2 border-gray-500" //only bottom border
-                    placeholder={"Password"}
-                    onChange={(e) => setPassword(e.target.value)} 
-                    value={password} 
-                    type="password"    
-                />
-            </div>
-            {error && <div>{error}</div>}
-            <input 
-                type="submit" 
-                className="pill-button text-white bg-primary hover:bg-secondary" 
-                value={formattedFormType}
-                disabled={isLoading}
-            />        
-            {redirectLink}
-        </form>
+                    type="submit" 
+                    className="pill-button text-white bg-primary hover:bg-secondary" 
+                    value={formattedFormType}
+                    disabled={isLoading}
+                />        
+                {redirectLink}
+            </form>
     )
   
 }

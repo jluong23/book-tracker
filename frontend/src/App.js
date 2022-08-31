@@ -8,16 +8,14 @@ function App() {
   const {user} = useAuthContext();
   console.log("AuthContext: ", user);
   return (
-    <div className="App">
+    <div className="App h-screen flex flex-col">
       <BrowserRouter>
         <Navbar/>
-        <div className='p-2'>
           <Routes>
             <Route path="/" element={user ? <Home/> : <Navigate to='/login'/>}/>
             <Route path="/login" element={ user ? <Navigate to='/'/> : <Login/>}/>
             <Route path="/signup" element={ user ? <Navigate to='/'/> : <Signup/>}/>
           </Routes>
-        </div>
     </BrowserRouter>
     </div>
   );
