@@ -1,6 +1,7 @@
 import useTasksContext from "../hooks/useTasksContext";
 import moment from 'moment';
 import {ImBin, ImPencil} from 'react-icons/im'
+import {IoMdCheckmarkCircle} from 'react-icons/io'
 import {FaSave} from 'react-icons/fa'
 import useAuthContext from "../hooks/useAuthContext";
 import { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import useModalContext from "../hooks/useModalContext";
 const TaskDetails = ({task}) => {
     const { dispatch:tasksDispatch } = useTasksContext();
     const { user } = useAuthContext();
-    const { dispatch:modalDispatch } = useModalContext();
+    const { openModal } = useModalContext();
     // states used for editing the task.
     // for printing original task properties, use attributes of task
     const [editMode, setEditMode] = useState(false);
@@ -18,11 +19,8 @@ const TaskDetails = ({task}) => {
     const [description, setDescription] = useState(task.description);
     const [color, setColor] = useState(task.color);
 
-    const openModal = () => {
-        modalDispatch({
-            type: 'OPEN',
-            payload: <TaskDeleteForm/>
-        })   
+    const openDeleteTaskModal = () => {
+        openModal(<TaskDeleteForm task={task} />);
     }
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -54,7 +52,7 @@ const TaskDetails = ({task}) => {
 
 
     const editModeOuput = (
-        <div className="p-2 m-4 border-2 w-max">
+        <div className="p-2 m-4 border-2">
             <form>
                 <input 
                     onChange={(e) => setTitle(e.target.value)} 
@@ -68,8 +66,8 @@ const TaskDetails = ({task}) => {
                     type="email"    
                 /><br/>
             </form>
-            <div className="flex justify-between">
-                <ImBin onClick={openModal} className="cursor-pointer text-lg"/>
+            <div className="flex justify-between text-lg">
+                <ImBin onClick={openDeleteTaskModal} className="cursor-pointer text-lg"/>
                 {/* make request and toggle edit mode when save button is pressed. */}
                 <FaSave onClick={() => {handleEditRequest(); toggleEditMode();}} className="cursor-pointer text-lg"/>
                 
@@ -78,14 +76,15 @@ const TaskDetails = ({task}) => {
     )
 
     const viewModeOutput = (
-        <div className="p-2 m-4 border-2 border-black border-opacity-20 w-max">
+        <div className="p-2 m-4 border-2 border-black border-opacity-20">
             <h2 className="font-bold">{task.title}</h2>
             <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
             <p className="my-2">{task.description}</p>
-            <div className="flex justify-between">
-            <ImBin onClick={openModal} className="cursor-pointer text-lg"/>
-            {/* Toggle edit mode when pressed . */}
-            <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/>
+            <div className="flex justify-between text-lg">
+                {/* Toggle edit mode when pressed . */}
+                <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/>
+                {/* TODO: BACKEND */}
+                <IoMdCheckmarkCircle onClick={() => {alert("todo, mark task as resolved")}} className="cursor-pointer"/>
             </div>
         </div>
     )

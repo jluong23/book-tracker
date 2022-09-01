@@ -1,11 +1,13 @@
 import useAuthContext from "../hooks/useAuthContext";
+import useModalContext from "../hooks/useModalContext";
 import useTasksContext from "../hooks/useTasksContext";
 
 
-const TaskDeleteForm = ({task, closeModal}) => {
+const TaskDeleteForm = ({task}) => {
     const { dispatch } = useTasksContext();
     const { user } = useAuthContext();
-
+    const {closeModal} = useModalContext();
+    
     const handleDelete = async () => {
         if(!user){
             return
@@ -23,6 +25,8 @@ const TaskDeleteForm = ({task, closeModal}) => {
                 type: 'DELETE_TASK',
                 payload: json
             })
+            // close modal
+            closeModal();
         }
     }
 
@@ -34,7 +38,7 @@ const TaskDeleteForm = ({task, closeModal}) => {
             </p>
             <div className="flex justify-around">
                 <button onClick={handleDelete} className="pill-button bg-success">Yes</button>
-                <button  onClick={closeModal} className="pill-button bg-error">No</button>
+                <button onClick={closeModal} className="pill-button bg-error">No</button>
 
             </div>
         </div>

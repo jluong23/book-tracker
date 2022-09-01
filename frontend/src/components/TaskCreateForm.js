@@ -1,9 +1,14 @@
 import { useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
+import useModalContext from "../hooks/useModalContext";
 import useTasksContext from "../hooks/useTasksContext";
 const TaskCreateForm = () => {
+    // contexts
     const {dispatch} = useTasksContext();
     const { user } = useAuthContext();
+    const {closeModal} = useModalContext();
+
+    // states
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [color, setColor] = useState('');
@@ -39,6 +44,8 @@ const TaskCreateForm = () => {
             resetForm();
             // update tasks context, appending new task
             dispatch({type: "CREATE_TASK", payload: json})
+            // close modal if successful
+            closeModal();
         }else{
             setError(json.error);
             setEmptyFields(json.emptyFields);

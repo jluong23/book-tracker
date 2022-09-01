@@ -3,7 +3,7 @@ import { useTasksContext } from "../hooks/useTasksContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import TaskDetails from "../components/TaskDetails";
-import TaskIcons from "../components/TaskIcons";
+import TaskBarIcons from "../components/TaskBarIcons";
 const Home = () => {
     const {tasks, dispatch} = useTasksContext();
     const { user } = useAuthContext();
@@ -37,7 +37,7 @@ const Home = () => {
             return <div>There are no tasks remaining!</div>
         }
         return (
-            <div className="flex">
+            <div className="flex flex-wrap">
                 {tasks.map((task) => {
                     return (
                         <TaskDetails key={task._id} task={task}/>
@@ -50,7 +50,7 @@ const Home = () => {
         <div className="p-2 ">
             <div className="flex">
                 <h2>All Tasks</h2>
-                <TaskIcons/>
+                <TaskBarIcons/>
             </div>
             {tasksOutput()}
         </div>
