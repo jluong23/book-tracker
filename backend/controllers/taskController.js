@@ -46,7 +46,8 @@ const createTask = async (req, res) => {
   // add to the database
   try {
     const user_id = req.user._id;
-    const task = await Task.create({ title, description, color, user_id })
+    const resolved = false;
+    const task = await Task.create({ title, description, color, user_id, resolved })
     res.status(200).json(task)
   } catch (error) {
     res.status(400).json({ error: error.message })

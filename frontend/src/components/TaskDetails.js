@@ -2,11 +2,13 @@ import useTasksContext from "../hooks/useTasksContext";
 import moment from 'moment';
 import {ImBin, ImPencil} from 'react-icons/im'
 import {IoMdCheckmarkCircle} from 'react-icons/io'
+import {BiArrowBack} from 'react-icons/bi';
 import {FaSave} from 'react-icons/fa'
 import useAuthContext from "../hooks/useAuthContext";
 import { useEffect, useState } from "react";
 import TaskDeleteForm from "./TaskDeleteForm";
 import useModalContext from "../hooks/useModalContext";
+import TaskTags from "./TaskTags";
 
 const TaskDetails = ({task}) => {
     const { dispatch:tasksDispatch } = useTasksContext();
@@ -26,11 +28,19 @@ const TaskDetails = ({task}) => {
         setEditMode(!editMode);
     }
 
-    const handleEditRequest = async () => {
+    /**
+     * Create a patch request to '/api/tasks/<task._id>
+     * @param {boolean} resolved Sets the task.resolve property 
+     * @returns 
+     */
+    const handleEditRequest = async (resolved) => {
         if(!user){
             return
         }  
         const editedTask = {title,description,color};
+        if(resolved != null){
+            editedTask.resolved = resolved;
+        }
 
         const response = await fetch(`/api/tasks/${task._id}`, {
             method: 'PATCH',
@@ -67,6 +77,7 @@ const TaskDetails = ({task}) => {
                 /><br/>
             </form>
             <div className="flex justify-between text-lg">
+                <BiArrowBack onClick={toggleEditMode} className="cursor-pointer text-lg"/>
                 <ImBin onClick={openDeleteTaskModal} className="cursor-pointer text-lg"/>
                 {/* make request and toggle edit mode when save button is pressed. */}
                 <FaSave onClick={() => {handleEditRequest(); toggleEditMode();}} className="cursor-pointer text-lg"/>
@@ -77,14 +88,13 @@ const TaskDetails = ({task}) => {
 
     const viewModeOutput = (
         <div className="p-2 m-4 border-2 border-black border-opacity-20">
+            <TaskTags task={task}/>
             <h2 className="font-bold">{task.title}</h2>
             <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
             <p className="my-2">{task.description}</p>
             <div className="flex justify-between text-lg">
-                {/* Toggle edit mode when pressed . */}
-                <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/>
-                {/* TODO: BACKEND */}
-                <IoMdCheckmarkCircle onClick={() => {alert("todo, mark task as resolved")}} className="cursor-pointer"/>
+                <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/> {/* Toggle edit mode when pressed. */}
+                <IoMdCheckmarkCircle onClick={() => {handleEditRequest(true)}} className="cursor-pointer"/>
             </div>
         </div>
     )
