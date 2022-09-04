@@ -76,10 +76,10 @@ const TaskDetails = ({task}) => {
                 /><br/>
             </form>
             <div className="flex justify-between text-lg">
-                <BiArrowBack onClick={toggleEditMode} className="cursor-pointer text-lg"/>
-                <ImBin onClick={openDeleteTaskModal} className="cursor-pointer text-lg"/>
+                <BiArrowBack onClick={toggleEditMode} className="cursor-pointer text-lg" title="Back"/>
+                <ImBin onClick={openDeleteTaskModal} className="cursor-pointer text-lg" title="Delete"/>
                 {/* make request and toggle edit mode when save button is pressed. */}
-                <FaSave onClick={() => {handleEditRequest(); toggleEditMode();}} className="cursor-pointer text-lg"/>
+                <FaSave onClick={() => {handleEditRequest(); toggleEditMode();}} className="cursor-pointer text-lg" title="Save"/>
                 
             </div>
         </div>
@@ -92,8 +92,14 @@ const TaskDetails = ({task}) => {
             <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
             <p className="my-2">{task.description}</p>
             <div className="flex justify-between text-lg">
-                <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/> {/* Toggle edit mode when pressed. */}
-                <input type={"checkbox"} checked={task.resolved} onChange={(e) => {handleEditRequest(e.target.checked)}} className={"cursor-pointer"}/>
+                <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg" title="Edit"/> {/* Toggle edit mode when pressed. */}
+                <input 
+                    type={"checkbox"} 
+                    checked={task.resolved} 
+                    onChange={(e) => {handleEditRequest(e.target.checked)}} 
+                    className={"cursor-pointer"}
+                    title={task.resolved ? "Set as unresolved" : "Set as resolved"}
+                />
             </div>
         </div>
     )

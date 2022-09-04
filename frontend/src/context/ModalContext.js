@@ -31,9 +31,12 @@ export const ModalContextProvider = ({ children }) => {
       {state.visible && 
         <div className="fixed inset-0 bg-opacity-30 bg-black backdrop-blur-sm flex justify-center items-center">
           {/* Modal */}
-          <div className="bg-white p-2 rounded">
+          <div className="bg-white p-1 rounded">
               <AiFillCloseCircle className="right-0 float-right relative cursor-pointer text-lg" onClick={closeModal}/>
-              {state.content}
+              <div className='p-5'>
+                {state.content}
+
+              </div>
           </div>
         </div>
       }
