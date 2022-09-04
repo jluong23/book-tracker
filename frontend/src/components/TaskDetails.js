@@ -1,7 +1,6 @@
 import useTasksContext from "../hooks/useTasksContext";
 import moment from 'moment';
 import {ImBin, ImPencil} from 'react-icons/im'
-import {IoMdCheckmarkCircle} from 'react-icons/io'
 import {BiArrowBack} from 'react-icons/bi';
 import {FaSave} from 'react-icons/fa'
 import useAuthContext from "../hooks/useAuthContext";
@@ -94,7 +93,7 @@ const TaskDetails = ({task}) => {
             <p className="my-2">{task.description}</p>
             <div className="flex justify-between text-lg">
                 <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg"/> {/* Toggle edit mode when pressed. */}
-                <IoMdCheckmarkCircle onClick={() => {handleEditRequest(true)}} className="cursor-pointer"/>
+                <input type={"checkbox"} checked={task.resolved} onChange={(e) => {handleEditRequest(e.target.checked)}} className={"cursor-pointer"}/>
             </div>
         </div>
     )
