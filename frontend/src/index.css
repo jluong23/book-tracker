@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-  @apply bg-gray-200
+  @apply bg-gray-200 font-karla
 }
 h1{
   @apply text-3xl

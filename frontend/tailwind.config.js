@@ -12,6 +12,9 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
+      fontFamily: {
+        'karla': ['Karla', 'sans-serif']
+      },
       colors: {
         primary: '#0369a1',
         secondary: '#1d4ed8',
