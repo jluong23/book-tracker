@@ -28,7 +28,7 @@ const getTask = async (req, res) => {
 
 // create a new task
 const createTask = async (req, res) => {
-  const {title, description, color} = req.body
+  const {title, description, deadline} = req.body
   let emptyFields = [];
 
   for(let [field,value] of Object.entries(req.body)){
@@ -46,8 +46,7 @@ const createTask = async (req, res) => {
   // add to the database
   try {
     const user_id = req.user._id;
-    const resolved = false;
-    const task = await Task.create({ title, description, color, user_id, resolved })
+    const task = await Task.create({ title, description, deadline, user_id })
     res.status(200).json(task)
   } catch (error) {
     res.status(400).json({ error: error.message })

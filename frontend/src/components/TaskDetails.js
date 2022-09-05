@@ -18,7 +18,7 @@ const TaskDetails = ({task}) => {
     const [editMode, setEditMode] = useState(false);
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
-    const [color, setColor] = useState(task.color);
+    const [deadline, setDeadline] = useState(task.deadline);
 
     const openDeleteTaskModal = () => {
         openModal(<TaskDeleteForm task={task} />);
@@ -36,7 +36,7 @@ const TaskDetails = ({task}) => {
         if(!user){
             return
         }  
-        const editedTask = {title,description,color};
+        const editedTask = {title,description,deadline};
         if(resolved != null){
             editedTask.resolved = resolved;
         }
@@ -68,7 +68,13 @@ const TaskDetails = ({task}) => {
                     value={title} 
                     type="text"    
                 /><br/>
-                <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
+                <input 
+                    onChange={(e) => {setDeadline(e.target.value); console.log(e.target.value)}} 
+                    type="date"
+                    // html requires passing date in this format for default value
+                    value={moment(deadline).format('YYYY-MM-DD')}
+                    className="w-full"
+                /><br/>
                 <input 
                     onChange={(e) => setDescription(e.target.value)} 
                     value={description} 
@@ -89,7 +95,7 @@ const TaskDetails = ({task}) => {
         <div className="p-2 m-4 border-2 border-black border-opacity-20">
             <TaskTags task={task}/>
             <h2 className="font-bold">{task.title}</h2>
-            <p className="font-semibold">{moment(task.updatedAt).format('LLL')}</p>
+            <p className="font-semibold">Due: {moment(deadline).format('DD-MM-YYYY')}</p>
             <p className="my-2">{task.description}</p>
             <div className="flex justify-between text-lg">
                 <ImPencil onClick={() => {toggleEditMode()}} className="cursor-pointer text-lg" title="Edit"/> {/* Toggle edit mode when pressed. */}

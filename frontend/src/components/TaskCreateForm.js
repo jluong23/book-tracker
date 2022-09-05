@@ -11,14 +11,14 @@ const TaskCreateForm = () => {
     // states
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [color, setColor] = useState('');
+    const [deadline, setDeadline] = useState('');
     const [error, setError] = useState(null); // error string
     const [emptyFields, setEmptyFields] = useState([]); // list of strings containing which fields were empty on form submission
 
     const resetForm = () => {
         setTitle('');
         setDescription('');
-        setColor('');
+        setDeadline('');
         setError(null);
         setEmptyFields([]);
     }
@@ -29,7 +29,7 @@ const TaskCreateForm = () => {
             setError("Please login to create new tasks.");
             return
         }
-        const Task = {title, description, color};
+        const Task = {title, description, deadline};
         const response = await fetch('/api/tasks', {
             method: 'POST',
             body: JSON.stringify(Task),
@@ -54,7 +54,7 @@ const TaskCreateForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="text-lg">
+        <form onSubmit={handleSubmit} className="text-lg flex flex-col">
             <h2>Create Task</h2>
             <input 
                 className={emptyFields.includes('title') ? "border-error" : ""}
@@ -62,7 +62,7 @@ const TaskCreateForm = () => {
                 value={title} 
                 type="text"   
                 placeholder="Title" 
-            /><br/>
+            />
 
             <input 
                 className={emptyFields.includes('description') ? "border-error" : ""}
@@ -70,17 +70,16 @@ const TaskCreateForm = () => {
                 value={description} 
                 type="text"
                 placeholder="Description" 
-            /><br/>
+            />
 
             <input 
-                className={emptyFields.includes('color') ? "border-error" : ""}
-                onChange={(e) => setColor(e.target.value)} 
-                value={color}
-                type="text" 
-                placeholder="Color" 
-            /><br/>
+                className={`w-full ${emptyFields.includes('deadline') ? "border-error" : ""}`}
+                onChange={(e) => setDeadline(e.target.value)} 
+                type="date" 
+                placeholder="Deadline" 
+            />
 
-            {error && <div className="w-max whitespace-pre-wrap">{error}</div>}
+            {error && <div>{error}</div>}
             <input type="submit" className="pill-button text-white bg-primary hover:bg-secondary" value="Create"/>
         </form>
     )

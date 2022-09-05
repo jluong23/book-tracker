@@ -11,13 +11,13 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
-  color: {
-    type: String,
-    required: true
-  },
   resolved: {
     type: Boolean,
-    required: true
+    default: false
+  },
+  deadline: {
+    type: Date,
+    default: Date.now
   },
   user_id: {
     type: String,
