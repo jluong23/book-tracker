@@ -1,4 +1,4 @@
-# Task Tracker
+# Task / To-do Tracker 
 
 Following the MERN Stack Tutorial by The Net Ninja [here](https://www.youtube.com/playlist?list=PL4cUxeGkcC9iJ_KkrkBZWZRHVwnzLIoUE).
 
@@ -11,6 +11,6 @@ Following the MERN Stack Tutorial by The Net Ninja [here](https://www.youtube.co
   - Start the server with `npm run dev`, running on port 5000. (specified in .env)
   - If successful, the server will print *Connected to database* and show incoming HTTP requests.
 
-- Starting the react Frontend:
+- Starting the React Frontend:
   - In a separate terminal and in the [frontend](./frontend/) directory, run `npm install`
-  - Start the frontend with `npm start`, running on port 3000.
+  - Start the Frontend with `npm start`, running on port 3000.
